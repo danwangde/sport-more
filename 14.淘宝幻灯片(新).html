@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        p{
+            margin: 0;padding: 0;
+        }
+        #div1{
+            width:520px;height: 280px;border: 1px solid #000000;position: relative;
+            margin: 100px auto;overflow: hidden;
+        }
+        #ul1{
+            position: absolute;top:0;left: 0;margin: 0;padding: 0;width: 3120px;
+        }
+        #ul1 li{
+            list-style: none;float: left;
+        }
+        #div1 a{
+            position: absolute;height:30px;width:30px;top:125px;border:4px solid red;
+            background: #cf6;font-size:24px;line-height:30px;color:#000;text-align: center;text-decoration: none;
+            filter:alpha(opacity:30); opacity:0.3;
+        }
+        #div1 a:hover{
+            opacity: 0.9;filter: alpha(opacity=90);
+        }
+        #div1 #previous{
+            left:0;
+        }
+        #div1 #next{
+            right: 0;
+        }
+        #p1{
+            position: absolute;bottom: 8px;width:100%;text-align: center;
+        }
+        #p1 span{
+            padding: 2px 12px;border-radius: 50%;background: #cccccc;cursor: pointer;
+            margin-right: 4px;
+        }
+        #p1 span.active{
+            background: #ff6600;
+        }
+    </style>
+    <script src="move.js"></script>
+    <script>
+        window.onload=function () {
+            var oDiv=document.getElementById('div1');
+            var oUl1=document.getElementById('ul1');
+            var oPrevious=document.getElementById('previous');
+            var oNext=document.getElementById('next');
+            var oP=document.getElementById('p1');
+            var aLi=oUl1.getElementsByTagName('li');
+            var aSpan=oP.getElementsByTagName('span');
+
+            var len=aLi.length;
+            var iWidth=aLi[0].offsetWidth;
+            var num=0;
+            oUl1.style.width=iWidth*len+'px';
+            oUl1.style.opacity='0.3';
+            oUl1.style.filter='alpha(opacity=30)';
+
+            for (var i=0;i<len;i++) {
+
+                aSpan[i].index = i;
+                aSpan[i].onclick = function () {
+                    num=this.index;
+                    /*for (var i = 0; i < len; i++) {
+                        aSpan[i].className = '';
+                    }
+                    this.className = 'active';
+                    doMove(oUl1, {
+                        left: -this.index * iWidth,
+                        opacity: 100
+                    })*/
+                    same();
+                }
+
+
+                oPrevious.onclick = function () {
+                    num++;
+                    if (num==len){
+                        num=0;
+                    }
+                    same();
+                }
+
+                oNext.onclick = function () {
+                    num--;
+                    if (num==-1){
+                        num=len-1;
+                    }
+                    same();
+                }
+            }
+
+
+            function same() {
+                for (var i = 0; i < len; i++) {
+                    aSpan[i].className = '';
+                }
+                aSpan[num].className='active';
+
+                doMove(oUl1, {
+                    left: -num * iWidth,
+                    opacity: 100
+                })
+            }
+            
+
+        }
+    </script>
+</head>
+<body>
+<div id="div1">
+    <ul id="ul1">
+        <li><img src="img/taobao1.jpg" alt=""></li>
+        <li><img src="img/taobao2.jpg" alt=""></li>
+        <li><img src="img/taobao3.jpg" alt=""></li>
+        <li><img src="img/taobao4.jpg" alt=""></li>
+        <li><img src="img/taobao5.jpg" alt=""></li>
+        <li><img src="img/taobao6.jpg" alt=""></li>
+    </ul>
+
+    <a id="previous" href="javascript:;"> < </a>
+    <a id="next" href="javascript:;"> > </a>
+
+    <p id="p1">
+        <span class="active"></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </p>
+</div>
+</body>
+</html>
