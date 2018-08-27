@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        window.onload=function () {
+            var oImg=document.getElementById('img1');
+            var arr=[
+                'http://img1.imgtn.bdimg.com/it/u=880673986,1326148493&fm=214&gp=0.jpg',
+                'http://img1.imgtn.bdimg.com/it/u=256777305,4083788414&fm=26&gp=0.jpg',
+                'http://img5.imgtn.bdimg.com/it/u=1632650795,2602008816&fm=11&gp=0.jpg',
+                'http://img1.cache.netease.com/catchpic/7/70/70573356658804865DEB9F7882774E38.jpg',
+                'http://n.sinaimg.cn/sinacn/w640h853/20171231/a671-fyqefvw7053866.jpg',
+                'http://imgmini.eastday.com/mobile/20160423165200_8b70f2ba7967ca7247760016b1a9aad3_6.jpeg',
+                'http://www.dugoogle.com/uploads/allimg/171113/7_171113122410_1.jpg'
+            ]
+
+            var oImage=new Image();
+            /*oImage.src='http://img.piaoliang.com/uploads/allimg/161024/80-1610240uiw25.jpg';
+
+            oImage.onload=function () {
+
+                document.onclick=function () {
+                    oImg.src='http://img.piaoliang.com/uploads/allimg/161024/80-1610240uiw25.jpg';
+                }
+            }*/
+            var iCur = 0;
+            var i = 0;
+
+            xunlei();
+
+            document.onclick = function() {
+                i++;
+                if (i < arr.length) {
+                    oImg.src = arr[i];
+                }
+            }
+
+            function xunlei() {
+                oImage.src = arr[iCur];
+                oImage.onload = function() {
+                    iCur++;
+                    if (iCur < arr.length) {
+                        xunlei();	//递归
+                    }
+                    document.title = iCur + ' / ' + arr.length;
+                }
+            }
+
+        }
+    </script>
+</head>
+<body>
+<img id="img1" src="http://img.piaoliang.com/uploads/allimg/161024/80-1610240uiw25.jpg" alt="">
+</body>
+</html>

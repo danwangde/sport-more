@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>弹性运动</title>
+    <style>
+        body{
+            margin: 0;
+        }
+        #div1{
+            width: 100px;height: 100px;background: red;position: absolute;top:200px;
+        }
+        #bg{
+            width: 1px; height: 500px;background: black;position: absolute;left: 500px;
+        }
+    </style>
+    <script>
+        window.onload=function () {
+            var oDiv=document.getElementById('div1');
+            var iTimer=null;
+            var iSpeed=0;
+
+            oDiv.onclick=function () {
+                doMove();
+            }
+
+            function doMove() {
+                clearInterval(iTimer);
+
+                iTimer=setInterval(function () {
+
+                    if( oDiv.offsetLeft < 500 ){
+                        iSpeed += 5;
+                    }
+                    else{
+                        iSpeed -= 5;
+                    }
+
+                    oDiv.style.left = oDiv.offsetLeft + iSpeed + 'px';
+
+                },30)
+            }
+        }
+    </script>
+</head>
+<body>
+<div id="div1"></div>
+<div id="bg"></div>
+</body>
+</html>
