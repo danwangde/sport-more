@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        ul{
+            margin: 0;padding: 0;
+        }
+        #ul1{
+            width: 642px; height:30px; margin: 0 auto;position: relative;
+        }
+        #ul1 li{
+            float: left;width:100px;height:30px;border:1px solid #000;line-height: 30px;text-align: center;
+            margin-right: 5px;list-style: none;color: white;background: #2a2a2a;
+        }
+        #ul1 #shadow{
+            position: absolute;background: blue;left: 0;top:0;
+
+        }
+    </style>
+    <script>
+        window.onload=function () {
+            var oShadow=document.getElementById('shadow');
+            var aLi=document.getElementsByClassName('box');
+            var len=aLi.length;
+
+            var iTimer=null;
+            var iTimer1=null;
+            var iSpeed=0;
+
+
+            for (var i=0;i<len;i++){
+                aLi[i].onmouseover=function(){
+                    clearTimeout(iTimer1);
+                    move(this.offsetLeft);
+                }
+
+                aLi[i].onmouseout=function(){
+                    iTimer1=setTimeout(function () {
+                        move(0);
+                    },100)
+
+                }
+                oShadow.onmouseover=function () {
+                    clearTimeout(iTimer1);
+                }
+                oShadow.onmouseout=function () {
+                    iTimer1=setTimeout(function () {
+                        move(0);
+                    },100)
+                }
+            }
+
+            function move(target) {
+                clearInterval(iTimer);
+                iTimer=setInterval(function () {
+                    iSpeed +=(target-oShadow.offsetLeft)/6;
+                    iSpeed *= 0.75;
+                    if (Math.abs(iSpeed)<=1 && Math.abs(target-oShadow.offsetLeft)<=1){
+                        clearInterval(iTimer);
+                        oShadow.style.left=target+'px';
+                        iSpeed=0;
+
+                    }else{
+                        oShadow.style.left=oShadow.offsetLeft+iSpeed+'px';
+                    }
+                },30)
+            }
+        }
+    </script>
+</head>
+<body>
+<ul id="ul1">
+    <li id="shadow"></li>
+    <li class="box">首页</li>
+    <li class="box">课程</li>
+    <li class="box">视频课程</li>
+    <li class="box">尊享视频</li>
+    <li class="box">社区</li>
+    <li class="box">学员作品</li>
+</ul>
+</body>
+</html>
