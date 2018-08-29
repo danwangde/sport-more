@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>iPhone手机图片查看器 - 妙味课堂 - www.miaov.com</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+
+</head>
+<script>
+    window.onload=function () {
+        var oUl=document.getElementById('ul1');
+        var aLi=oUl.getElementsByTagName('li');
+
+        var iNow = 0;
+        var timer = null;
+        var iSpeed = 0;
+        
+        oUl.onmousedown=function (e) {
+            var ev=ev || event;
+            var disX=ev.clientX-oUl.offsetLeft;
+            var downX=ev.clientX;
+            clearTimeout(timer);
+
+            document.onmousemove=function (e) {
+                var  ev=ev || event;
+                oUl.style.left=ev.clientX-disX+'px';
+            }
+
+            document.onmouseup=function (ev) {
+                document.onmousemove=document.onmouseup=null;
+                var ev= ev || event;
+
+                if (ev.clientX < downX){
+
+                    if (iNow!=aLi.length-1){
+                        iNow++;
+                    }
+                    startmove(-iNow * aLi[0].offsetWidth);
+                }
+                else{
+                    if (iNow!=0){
+                        iNow--;
+                    }
+                    startmove(-iNow * aLi[0].offsetWidth);
+                }
+
+
+            }
+
+            return false;
+        }
+
+        function startmove(target) {
+            clearTimeout(timer);
+            timer=setInterval(function () {
+                iSpeed+=(target-oUl.offsetLeft)/6;
+
+                iSpeed *=0.75;
+
+                if (Math.abs(iSpeed)<=1 && Math.abs(target-oUl.offsetLeft)<=1){
+                    clearInterval(timer);
+                    oUl.style.left=target+'px';
+                    iSpeed=0;
+                }
+                else{
+                    oUl.style.left=oUl.offsetLeft+iSpeed+'px';
+                }
+            },30)
+        }
+    }
+</script>
+<body>
+
+<div id="iphone" >
+    <div id="wrap">
+        <ul id="ul1">
+            <li style="background:url(images/pic1.png);" title="妙味课堂"></li>
+            <li style="background:url(images/pic2.png);" title="妙味课堂"></li>
+            <li style="background:url(images/pic3.png);" title="妙味课堂"></li>
+            <li style="background:url(images/pic4.png);" title="妙味课堂"></li>
+        </ul>
+    </div>
+</div>
+
+</body>
+</html>

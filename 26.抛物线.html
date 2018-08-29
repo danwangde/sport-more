@@ -13,6 +13,7 @@
 
             var timer = null;
             var iSpeed = 0;
+            var iSpeedX=30;
 
             oInput.onclick = function(){
                 startMove();
@@ -22,9 +23,10 @@
                 clearInterval(timer);
                 timer = setInterval(function(){
 
-                    iSpeed += 30;
+                    iSpeed += 3;
 
                     var T = oDiv.offsetTop + iSpeed;
+                    var L = oDiv.offsetLeft + iSpeedX;
 
                     if(T > document.documentElement.clientHeight - oDiv.offsetHeight){
                         T = document.documentElement.clientHeight - oDiv.offsetHeight;
@@ -32,9 +34,17 @@
 
                         iSpeed *= 0.75;
 
+                        iSpeedX *=0.75;
+
                     }
 
                     oDiv.style.top = T + 'px';
+                    oDiv.style.left=L+'px';
+
+                    if(L>document.documentElement.clientWidth - oDiv.offsetWidth){
+                        clearInterval(timer);
+                        oDiv.style.top = document.documentElement.clientHeight - oDiv.offsetHeight+ 'px';
+                    }
 
                 },30);
             }
